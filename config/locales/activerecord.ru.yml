@@ -1,0 +1,9 @@
+ru:
+  activerecord:
+    models:
+      advertisement: 'Рекламное объявление'
+    attributes:
+      advertisement:
+        title: 'Заголовок'
+        summory: 'Краткое содержание'
+        body: 'Текст объявления'

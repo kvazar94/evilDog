@@ -1,0 +1,8 @@
+<h1>Рекламные объявления</h1>
+<div>
+ <%= link_to "▲", @advertisement, method: :order_desc, class: "nav-link" %>
+ <span>по дате</span>
+ <%= link_to "▼", @advertisement, method: :order_asc, class: "nav-link" %>
+ </div>
+<%= render @advertisements %>
+<%= will_paginate @advertisements, renderer: 'BootstrapPaginationHelper::LinkRenderer'  %>

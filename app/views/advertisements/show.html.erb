@@ -1,0 +1,40 @@
+
+<%= render 'shared/breadcrumb', category: @advertisement.category %>
+
+<article class="advertisement">
+	<section class="advertisement-head"> 
+		<h1> <%= @advertisement.title %> </h1>
+
+		<small>
+			
+			<time>
+				<%= @advertisement.created_at.to_date.strftime( "%e %B %Y %H:%M:%S" ) %>
+
+			</time>
+	
+			
+			<% if user_signed_in? && current_user.admin? %>
+			<% if @advertisement.category.present? %>
+			|
+			<%= link_to @advertisement.category.name, @advertisement.category%>
+			<% end %>
+			<% end %>
+
+			<% if user_signed_in? %>
+			|
+
+			<%= link_to 'Редактировать', edit_advertisement_path(@advertisement)%>
+			
+
+			|
+			<%= link_to 'Уничтожить', advertisement_path(@advertisement), method: :destroy, data: { confirm: 'Вы уверены?' } %>
+			<% end %>
+		</small>
+	</section>
+
+	<section class="advertisement-body">
+		<%= image_tag @advertisement.image.url(:large), class: 'img-show' if @advertisement.image? %>
+		<%= @advertisement.body %>
+	</section>
+
+</article>

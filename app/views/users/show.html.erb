@@ -1,0 +1,5 @@
+<h1><%= full_name %></h1>>
+<% @user_advertisements.each do |advertisement|%>
+
+<%= link_to advertisement.title, advertisement_path(advertisement)%>
+	<% end %>

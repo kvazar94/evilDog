@@ -1,0 +1,32 @@
+<article class="advertisement">
+	<section class="advertisement-head"> 
+		<h2> <%= link_to advertisement.title, advertisement_path(advertisement) %> </h2>
+
+		<small>
+			
+			<time>
+				<%= advertisement.created_at %>
+
+			</time>
+			
+			<% if advertisement.category.present? %>
+			|
+			<%= link_to advertisement.category.name, advertisement.category%>
+			<% end %>
+			
+
+
+			<%= link_to 'Редактировать', edit_advertisement_path(advertisement)%>
+
+			|
+			<%= link_to 'Уничтожить', advertisement_path(advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
+			
+		</small>
+	</section>
+	
+	
+	<section class="advertisement-body clearfix">
+		<%= image_tag advertisement.image.url(:thumb), class: 'img-thumbnail thumb' if advertisement.image?%>
+		<%= advertisement.body %>
+	</section>
+</article>
