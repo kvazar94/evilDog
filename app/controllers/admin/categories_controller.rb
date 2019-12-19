@@ -5,31 +5,31 @@ class Admin::CategoriesController < ApplicationController
     @categories = Category.all
   end
 
-  def show
-    @advertisements = Advertisement.where(category_id: [@category.subtree_ids]).paginate(page: params[:page], per_page: 5)
-  end
-
   def new
     @category = Category.new
+    @category = Category.all.order(:name)
   end
 
   def create
     @category = Category.new(category_params)
     if @category.save
-      redirect_to [:admin, @category], success: 'Категория успешно создана'
+      redirect_to admin_categories_path, success: 'Категория успешно создана'
     else
+      @categories = Category.all.order(:name)
       flash[:danger] = 'Категория не создана'
       render :new
     end
   end
 
   def edit
+    @categories = Category.where("id != #{@category.id}").order(:name)
   end
 
   def update
     if @category.update_attributes(category_params)
-      redirect_to [:admin, @category], success: 'Категория успешно обновлена'
+      redirect_to admin_categories_path success: 'Категория успешно обновлена'
     else
+      @categories = Category.where("id != #{@category.id}").order(:name)
       flash[:danger] = 'Категория не обновлена'
       render :edit
     end

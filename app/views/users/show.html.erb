@@ -1,5 +1,7 @@
-<h1><%= full_name %></h1>>
+<h1><%= @user.first_name + " " + @user.last_name %></h1>
 <% @user_advertisements.each do |advertisement|%>
 
-<%= link_to advertisement.title, advertisement_path(advertisement)%>
+<%= link_to advertisement.title, advertisement_path(advertisement) %>
+
+
 	<% end %>

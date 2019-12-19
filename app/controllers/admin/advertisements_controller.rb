@@ -6,7 +6,9 @@ class Admin::AdvertisementsController < ApplicationController
 	before_action :set_advertisement, only: [ :show, :destroy]
 
 	def index
-		@advertisements = Advertisement.paginate(page: params[:page], per_page: 5)
+		@q = Advertisement.ransack(params[:q])
+  		
+		@advertisements = @q.result.paginate(page: params[:page], per_page: 5)
 	end
 
 	def show
@@ -15,7 +17,6 @@ class Admin::AdvertisementsController < ApplicationController
 
 	def destroy
 
-		@advertisement = Advertisement.find(params[:id])
 		@advertisement.destroy
 		redirect_to advertisements_path, success: 'Объявление уничтожено успешно'
 

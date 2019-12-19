@@ -1,8 +1,8 @@
 class AdvertisementsController < ApplicationController
 	
-	#before_action :authenticate_user!, except: [:index, :show]
+	before_action :authenticate_user!, except: [:index, :show]
 
-	#before_action :set_advertisement, only: [ :show, :edit, :update, :destroy]
+	before_action :set_advertisement, only: [ :show, :edit, :update, :destroy]
 
 	def index
 		@q = Advertisement.ransack(params[:q])
@@ -23,9 +23,9 @@ class AdvertisementsController < ApplicationController
 	def create
 		@advertisement = current_user.advertisements.build(advertisement_params)
 		if @advertisement.save
-			redirect_to @advertisement 
+			redirect_to @advertisement, success: 'Объявление создано' 
 		else
-			render :new
+			render :new, danger: 'Что-то пошло не так ...'
 
 		end
 
@@ -53,16 +53,6 @@ class AdvertisementsController < ApplicationController
 
 	end
 
-def order_desc
-	@advertisement = Advertisement.order(created_at: :desc)
-	
-end
-
-def order_asc
-	@advertisement = Advertisement.order(created_at: :asc)
-	
-end
-
 
 	private
 
@@ -72,7 +62,7 @@ end
 	end
 
 	def advertisement_params
-		params.require(:advertisement).permit(:title, :body, :image, :category_id)
+		params.require(:advertisement).permit(:title, :body, :image, :category_id, :state, :user_id)
 
 	end
 

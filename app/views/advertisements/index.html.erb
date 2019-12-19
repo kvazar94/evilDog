@@ -1,8 +1,10 @@
-<h1>Рекламные объявления</h1>
 <div>
- <%= link_to "▲", @advertisement, method: :order_desc, class: "nav-link" %>
- <span>по дате</span>
- <%= link_to "▼", @advertisement, method: :order_asc, class: "nav-link" %>
- </div>
+	<%= search_form_for @q, builder: SimpleForm::FormBuilder, wrapper: :horizontal_form, html: { class: 'form-horizontal'} do |f| %>
+	<%= f.search_field :title_or_body_cont %>
+	<%= f.submit :искать %>
+	
+	<% end %>
+</div>
+
 <%= render @advertisements %>
 <%= will_paginate @advertisements, renderer: 'BootstrapPaginationHelper::LinkRenderer'  %>

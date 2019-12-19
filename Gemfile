@@ -31,7 +31,7 @@ gem 'bootstrap', '~> 4.4.1'
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
-
+gem 'state_machines-activerecord'
 gem 'carrierwave', '~> 2.0'
 
 gem "mini_magick"
@@ -43,7 +43,7 @@ gem "nested_form"
 gem 'trix-rails', require: 'trix'
 
 gem 'will_paginate', '~> 3.1.0'
-
+gem 'simple_form'
 gem 'devise'
 
 
