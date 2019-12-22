@@ -1,4 +1,6 @@
+
 <%= render 'shared/breadcrumb', category: @advertisement.category %>
+
 <article class="advertisement">
 	<section class="advertisement-head"> 
 		<h1> <%= @advertisement.title %> </h1>
@@ -7,17 +9,31 @@
 			
 			<time>
 				<%= @advertisement.created_at.to_date.strftime( "%e %B %Y %H:%M:%S" ) %>
+
 			</time>
 
-			<% if user_signed_in?%>
+			
+			<% if user_signed_in? %>
 			<% if @advertisement.category.present? %>
 			|
 			<%= link_to @advertisement.category.name, @advertisement.category%>
 			<% end %>
-
-			|
-			<%= link_to 'Уничтожить', advertisement_path(@advertisement), method: :destroy, data: { confirm: 'Вы уверены?' } %>
 			<% end %>
+
+			<% if user_signed_in? && !current_user.admin %>
+			|
+
+			<%= link_to 'Редактировать', edit_advertisement_path(@advertisement)%>
+			<% end %>
+
+			<% if user_signed_in? || current_user.admin %>
+			
+			|
+			<%= link_to 'Уничтожить', advertisement_path(@advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
+			<% end %>
+			<%= @advertisement.state %>
+			<%= @advertisement.user_id %>
+
 		</small>
 	</section>
 

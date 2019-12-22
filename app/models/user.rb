@@ -6,9 +6,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :confirmable, :validatable
 
-  has_one :profile
+  has_one :profile, dependent: :destroy
+  after_create :create_profile
   
-  has_many :advertisements
+  has_many :advertisements, :dependent => :destroy
+
+  
 
    private
     def create_role

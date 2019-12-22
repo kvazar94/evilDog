@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+	#before_filter :set_search
 	before_action :set_category, only: :show
 
 

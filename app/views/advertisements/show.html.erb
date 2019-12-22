@@ -20,14 +20,16 @@
 			<% end %>
 			<% end %>
 
-			<% if user_signed_in? %>
+			<% if user_signed_in? && !current_user.admin %>
 			|
 
 			<%= link_to 'Редактировать', edit_advertisement_path(@advertisement)%>
-			
+			<% end %>
 
+			<% if user_signed_in? || current_user.admin %>
+			
 			|
-			<%= link_to 'Уничтожить', advertisement_path(@advertisement), method: :destroy, data: { confirm: 'Вы уверены?' } %>
+			<%= link_to 'Уничтожить', advertisement_path(@advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
 			<% end %>
 			<%= @advertisement.state %>
 			<%= @advertisement.user_id %>

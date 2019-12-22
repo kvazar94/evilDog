@@ -4,7 +4,13 @@ class ApplicationController < ActionController::Base
 
 	before_action :configure_permitted_parameters, if: :devise_controller?
 
+	def set_search
+		@q = Advertisement.search(params[:q])
+	end
 
+	def show
+		
+	end
 
 	protected
 

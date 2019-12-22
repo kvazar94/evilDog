@@ -4,8 +4,10 @@ class AdvertisementsController < ApplicationController
 
 	before_action :set_advertisement, only: [ :show, :edit, :update, :destroy]
 
+	#before_filter :set_search
+
 	def index
-		@q = Advertisement.ransack(params[:q])
+		@q = Advertisement.where("state = 'published' ").ransack(params[:q])
   		
 		@advertisements = @q.result.paginate(page: params[:page], per_page: 5)
 	end
@@ -47,7 +49,7 @@ class AdvertisementsController < ApplicationController
 	end
 
 	def destroy
-
+		@advertisement = Advertisement.find(params[:id])
 		@advertisement.destroy
 		redirect_to advertisements_path, success: 'Объявление уничтожено успешно'
 
@@ -65,6 +67,7 @@ class AdvertisementsController < ApplicationController
 		params.require(:advertisement).permit(:title, :body, :image, :category_id, :state, :user_id)
 
 	end
+
 
 
 
