@@ -12,19 +12,15 @@
 
 			</time>
 
-			
-			<% if user_signed_in? %>
+		
 			<% if @advertisement.category.present? %>
 			|
 			<%= link_to @advertisement.category.name, @advertisement.category%>
 			<% end %>
-			<% end %>
+			
 
-			<% if user_signed_in? && !current_user.admin %>
-			|
-
-			<%= link_to 'Редактировать', edit_advertisement_path(@advertisement)%>
-			<% end %>
+			
+			
 
 			<% if user_signed_in? || current_user.admin %>
 			

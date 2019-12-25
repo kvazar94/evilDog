@@ -26,13 +26,10 @@
 			<% end %>
 
 			
-			|
-
-			<%= link_to 'Редактировать', edit_advertisement_path(advertisement)%>
 			
-
-			|
-			<%= link_to 'Уничтожить', advertisement_path(advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
+			<%= button_to 'Редактировать', edit_users_advertisement_path(advertisement)%>
+			
+						<%= button_to 'Уничтожить', users_advertisement_path(advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
 			
 			
 
@@ -44,7 +41,7 @@
 		<%= image_tag advertisement.image.url(:large), class: 'img-show' if advertisement.image? %>
 		
 	</section>
-<%= advertisement.state %>
+	<%= advertisement.state %>
 </article>
 
 

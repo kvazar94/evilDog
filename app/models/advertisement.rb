@@ -16,6 +16,8 @@ class Advertisement < ApplicationRecord
 
 	event :to_new do
 		transition :draft => :new
+		transition :rejected => :new
+		transition :archived => :new
 	end
 
 	event :to_archive do

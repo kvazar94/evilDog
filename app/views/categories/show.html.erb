@@ -3,7 +3,7 @@
 
 <section id="advertisements">
 
-	<%= render @category.advertisements %>
+	<%= render @category.advertisements.where("state = 'published' ") %>
 	
 </section>
 

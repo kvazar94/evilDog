@@ -1,5 +1,5 @@
-class Admin::CategoriesController < ApplicationController
-  before_action :set_category, only: [ :edit, :update, :destroy ]
+class Admin::CategoriesController < Admin::AdminController
+  before_action :set_category, only: [:edit, :update, :destroy]
 
   def index
     @categories = Category.all
@@ -7,7 +7,7 @@ class Admin::CategoriesController < ApplicationController
 
   def new
     @category = Category.new
-    @category = Category.all.order(:name)
+    @categories = Category.all.order(:name)
   end
 
   def create
@@ -27,7 +27,7 @@ class Admin::CategoriesController < ApplicationController
 
   def update
     if @category.update_attributes(category_params)
-      redirect_to admin_categories_path success: 'Категория успешно обновлена'
+      redirect_to admin_categories_path, success: 'Категория успешно обновлена'
     else
       @categories = Category.where("id != #{@category.id}").order(:name)
       flash[:danger] = 'Категория не обновлена'
@@ -37,7 +37,7 @@ class Admin::CategoriesController < ApplicationController
 
   def destroy
     @category.destroy
-    redirect_to categories_path, success: 'Категория успешно удалена'
+    redirect_to admin_categories_path, success: 'Категория успешно удалена'
   end
 
   private

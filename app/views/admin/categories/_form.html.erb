@@ -1,17 +1,15 @@
+
+ 
 <% if @category.errors.any? %>
-<div class="alert alert-danger">
-	<h5> <%= t('common.errors') %></h5>
-	<ul>
-		<% @category.errors.full_messages.each do |message|%>
-		<li> <%= message %></li>
-
-		<% end %>
-	</ul>
-
-</div>
-
+  <div class="alert alert-danger">
+    <h5><%= t('common.errors') %></h5>
+    <ul>
+      <% @category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
-
 
 <%= form_for [:admin, @category] do |f| %>
 
@@ -28,7 +26,7 @@
 
 
 <div class="form-group">
-	<%= f.submit 'Сохранить', action: @category.new_record? ? 'Создать': 'Изменить', class: 'btn btn-primary'  %>
+	<%= f.submit t('.submit', action: @category.new_record? ? t('common.create'): t('common.edit')), class: 'btn btn-primary'  %>
 	<%= link_to 'Назад', :back, class: 'btn btn-outline-secondary'  %>
 </div>
 

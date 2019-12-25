@@ -1,6 +1,6 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < Admin::AdminController
 
-	layout "application"
+	
 	
 	def current_user
 		User.find_by(id: session[:user_id])

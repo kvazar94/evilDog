@@ -35,7 +35,7 @@
 
         <% if user_signed_in? && current_user.admin? %>
         <li class="nav-item">
-          <%= link_to "Редактор категорий", admin_categories_url, class: "nav-link"%>
+          <%= link_to "Редактор категорий", admin_categories_path, class: "nav-link"%>
         </li>
         <li class="nav-item">
           <%= link_to "Редактор пользовтелей", admin_users_path, class: "nav-link"%>
@@ -48,7 +48,7 @@
         <li class="nav-item">
           <%#= button_to "Мой профиль", user_path %>
 
-          <%= link_to "Добавить объявление", new_advertisement_path, method: :create, class: "nav-link" %>
+          <%= link_to "Добавить объявление", new_users_advertisement_path, method: :create, class: "nav-link" %>
           <% end %> 
           
         </li>   
