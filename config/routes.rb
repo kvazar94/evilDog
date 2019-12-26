@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :advertisements, only: [:show, :index]
 
-  resources :users
+  #resources :users
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'advertisements#index'
@@ -15,13 +15,13 @@ Rails.application.routes.draw do
 
   namespace :admin do
   	resources :categories
-  	resources :advertisements, except: [:edit, :new, :create]
+  	resources :advertisements 
     resources :users
   end
 
   namespace :users do
-    resources :advertisements #,  except: [:show, :index]
-    
+    resources :advertisements, except: [:show, :index]
+
   end
 
 end

@@ -7,38 +7,43 @@ class Advertisement < ApplicationRecord
 	validates :title, :body, presence: true
 
 	state_machine initial: :draft do
-	state :new
-	state :draft
-	state :rejected
-	state :approved
-	state :published
-	state :archived
+		state :new
+		state :draft
+		state :rejected
+		state :approved
+		state :published
+		state :archived
 
-	event :to_new do
-		transition :draft => :new
-		transition :rejected => :new
-		transition :archived => :new
+		event :to_new do
+			transition :draft => :new
+			transition :rejected => :new
+			transition :archived => :new
+		end
+
+		event :to_archive do
+			transition :published => :archived
+		end
+
+		event :reject do
+			transition :new => :rejected
+		end
+
+		event :approve do
+			transition :new => :approved
+		end
+
+		event :to_published do
+			transition :approved => :published
+		end
+
+
 	end
+	attr_accessor :state_event
+	after_save :trigger_state, if: :state_event
 
-	event :to_archive do
-		transition :published => :archived
+	private def trigger_state
+		send(state_event) if send(:"can_#{state_event}?")
 	end
-
-	event :reject do
-		transition :new => :rejected
-	end
-
-	event :approve do
-		transition :new => :approved
-	end
-
-	event :to_published do
-		transition :approved => :published
-	end
-
-
-end
-
 
 
 end

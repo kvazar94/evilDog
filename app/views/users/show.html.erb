@@ -20,16 +20,16 @@
 			
 			
 			<% if advertisement.category.present? %>
-			|
+			
 			<%= link_to advertisement.category.name, advertisement.category%>
 			
 			<% end %>
 
 			
 			
-			<%= button_to 'Редактировать', edit_users_advertisement_path(advertisement)%>
+			<%= button_to 'Редактировать', edit_users_advertisement_path(advertisement), method: :get %>
 			
-						<%= button_to 'Уничтожить', users_advertisement_path(advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
+			<%= button_to 'Уничтожить', users_advertisement_path(advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
 			
 			
 

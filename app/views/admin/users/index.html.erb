@@ -19,7 +19,8 @@
 
 			<th scope="row"></th>
 			<td> 
-				<%= button_to "Уничтожить", edit_user_registration_path(user.id) %>
+
+				<%= button_to "Уничтожить", edit_user_registration_path(user.id),  method: :delete, confirm: 'Are You Sure?' %>
 				<button type="button" class="btn btn-dark">Редактировать</button>
 			</td>
 			<td><%= user.id %></td>

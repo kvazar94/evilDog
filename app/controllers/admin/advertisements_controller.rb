@@ -1,9 +1,9 @@
-class Admin::AdvertisementsController < ApplicationController
+class Admin::AdvertisementsController < Admin::AdminController
 
 
 	before_action :authenticate_user!, except: [:index, :show ]
 
-	before_action :set_advertisement, only: [ :edit, :update, :destroy, :ads_approve, :ads_reject ]
+	before_action :set_advertisement,  except: [:index ]
 
 	def index
 		@q = Advertisement.where("state = 'new' ").ransack(params[:q])
@@ -14,13 +14,15 @@ class Admin::AdvertisementsController < ApplicationController
 	def show
 	end	
 	
-	def ads_reject
-		@advertisement.reject
-	end
+	def reject
+		@advertisement.reject!
+	redirect_to @advertisement
+	 end
 	
-	def ads_approve
-		@advertisement.ads_approve
-	end
+	 def approve
+	 	@advertisement.approve!
+	 	redirect_to @advertisement
+	 end
 
 	def destroy
 
@@ -29,13 +31,28 @@ class Admin::AdvertisementsController < ApplicationController
 
 	end
 
+	def update
+
+		if @advertisement.update_attributes(advertisement_params)
+			redirect_to @advertisement, success: 'Объявление отредактировано успешно'
+			@advertisement.to_new
+		else
+			 flash.now[:danger] = 'Упс... что-то пошло не так...'
+			 render :edit
+
+		end
+	end
+
 	private
 
 	def set_advertisement
 		@advertisement = Advertisement.find(params[:id])
 
 	end
+	def advertisement_params
+		params.require(:advertisement).permit(:title, :body, :image, :category_id, :state_event, :user_id)
 
+	end
 
 
 

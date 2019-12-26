@@ -24,12 +24,8 @@
 			<% if user_signed_in? && !current_user.admin %>
 			|
 
-			<%= button_to 'Редактировать', edit_users_advertisement_path(@advertisement)%>
-			<% end %>
-
-			<% if user_signed_in? || current_user.admin %>
+			<%= button_to 'Редактировать', edit_users_advertisement_path(@advertisement), method: :get %>
 			
-			|
 			<%= button_to 'Уничтожить', users_advertisement_path(@advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
 			<% end %>
 			<%= @advertisement.state %>

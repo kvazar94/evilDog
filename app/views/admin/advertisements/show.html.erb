@@ -12,7 +12,7 @@
 
 			</time>
 
-		
+
 			<% if @advertisement.category.present? %>
 			|
 			<%= link_to @advertisement.category.name, @advertisement.category%>
@@ -25,8 +25,14 @@
 			<% if user_signed_in? || current_user.admin %>
 			
 			|
-			<%= link_to 'Уничтожить', advertisement_path(@advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
+			<%= button_to 'Уничтожить', admin_advertisement_path(@advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
+
+			<%= button_to 'Принять', admin_advertisement_path(@advertisement), params: { advertisement: { state_event: 'approve'}}, method: :patch %>
+			<%= button_to 'Отклонить', admin_advertisement_path(@advertisement), params: { advertisement: { state_event: 'reject'}}, method: :patch %>
+
+
 			<% end %>
+
 			<%= @advertisement.state %>
 			<%= @advertisement.user_id %>
 

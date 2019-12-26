@@ -4,7 +4,7 @@ class Admin::AdminController < ApplicationController
 
 	before_action :authenticate_user!
 	before_action :check_admin
-	 #layout "admin"
+	layout "admin"
 	protected
 
 	def check_admin
