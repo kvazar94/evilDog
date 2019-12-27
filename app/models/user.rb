@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  :recoverable, :rememberable, :validatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
@@ -10,12 +10,8 @@ class User < ApplicationRecord
   # after_create :create_profile
   
   has_many :advertisements, :dependent => :destroy
-
-  
-
-   private
-    def create_role
-      self.roles << Role.find_by_name(:user)  
-    end
-
+  private
+  def create_role
+    self.roles << Role.find_by_name(:user)  
+  end
 end

@@ -1,7 +1,6 @@
 class Advertisement < ApplicationRecord
 	mount_uploader :image, ImageUploader
 
-
 	belongs_to :user
 	belongs_to :category
 	validates :title, :body, presence: true
@@ -16,7 +15,7 @@ class Advertisement < ApplicationRecord
 
 		event :to_new do
 			transition :draft => :new
-			transition :rejected => :new
+			#transition :rejected => :new
 			transition :archived => :new
 		end
 
@@ -36,10 +35,18 @@ class Advertisement < ApplicationRecord
 			transition :approved => :published
 		end
 
-
+		event :from_rj_to_new do
+			transition :rejected => :new
+		end
 	end
+
 	attr_accessor :state_event
 	after_save :trigger_state, if: :state_event
+
+	def change
+		a = Advertisement.with_state(:approved)
+		a.to_published
+	end
 
 	private def trigger_state
 		send(state_event) if send(:"can_#{state_event}?")

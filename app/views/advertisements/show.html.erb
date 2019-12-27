@@ -1,48 +1,29 @@
-
 <%= render 'shared/breadcrumb', category: @advertisement.category %>
-
 <article class="advertisement">
 	<section class="advertisement-head"> 
 		<h1> <%= @advertisement.title %> </h1>
-
 		<small>
-			
 			<time>
 				<%= @advertisement.created_at %> 
 				<%#.to_date.strftime( "%e %B %Y %H:%M:%S" ) %>
-
 			</time>
-
-			
 			<% if user_signed_in? %>
 			<% if @advertisement.category.present? %>
-			|
 			<%= link_to @advertisement.category.name, @advertisement.category%>
 			<% end %>
 			<% end %>
-
 			<% if user_signed_in? && !current_user.admin %>
-			|
-
 			<%= button_to 'Редактировать', edit_users_advertisement_path(@advertisement)%>
 			<% end %>
-
 			<% if user_signed_in? || current_user.admin %>
-			
-			|
 			<%= button_to 'Уничтожить', users_advertisement_path(@advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
-
 			<% end %>
-		
 			<%= @advertisement.state %>
 			<%= @advertisement.user_id %>
-
 		</small>
 	</section>
-
 	<section class="advertisement-body">
 		<%= image_tag @advertisement.image.url(:large), class: 'img-show' if @advertisement.image? %>
 		<%= @advertisement.body %>
 	</section>
-
 </article>

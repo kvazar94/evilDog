@@ -1,6 +1,8 @@
 class Admin::CategoriesController < Admin::AdminController
+  
   before_action :set_category, only: [:edit, :update, :destroy]
-
+  #before_filter :set_search
+  
   def index
     @categories = Category.all
   end

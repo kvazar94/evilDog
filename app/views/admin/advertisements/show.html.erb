@@ -1,47 +1,26 @@
 
 <%= render 'shared/breadcrumb', category: @advertisement.category %>
-
 <article class="advertisement">
 	<section class="advertisement-head"> 
 		<h1> <%= @advertisement.title %> </h1>
-
 		<small>
-			
 			<time>
 				<%= @advertisement.created_at.to_date.strftime( "%e %B %Y %H:%M:%S" ) %>
-
 			</time>
-
-
 			<% if @advertisement.category.present? %>
-			|
 			<%= link_to @advertisement.category.name, @advertisement.category%>
 			<% end %>
-			
-
-			
-			
-
 			<% if user_signed_in? || current_user.admin %>
-			
-			|
 			<%= button_to 'Уничтожить', admin_advertisement_path(@advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
-
 			<%= button_to 'Принять', admin_advertisement_path(@advertisement), params: { advertisement: { state_event: 'approve'}}, method: :patch %>
 			<%= button_to 'Отклонить', admin_advertisement_path(@advertisement), params: { advertisement: { state_event: 'reject'}}, method: :patch %>
-
-
 			<% end %>
-
 			<%= @advertisement.state %>
 			<%= @advertisement.user_id %>
-
 		</small>
 	</section>
-
 	<section class="advertisement-body">
 		<%= image_tag @advertisement.image.url(:large), class: 'img-show' if @advertisement.image? %>
 		<%= @advertisement.body %>
 	</section>
-
 </article>

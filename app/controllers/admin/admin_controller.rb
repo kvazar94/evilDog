@@ -1,10 +1,10 @@
 class Admin::AdminController < ApplicationController
 
-	
-
 	before_action :authenticate_user!
 	before_action :check_admin
+	#before_filter :set_search
 	layout "admin"
+
 	protected
 
 	def check_admin
@@ -14,9 +14,6 @@ class Admin::AdminController < ApplicationController
 
 	def index
 		
-		
 	end
-
-
 
 end

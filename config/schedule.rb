@@ -18,3 +18,11 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+every 1.day, at: '0:00 am' do
+  
+end
+
+every 1.day, at: '11:50 pm' do
+ 
+end
