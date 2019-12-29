@@ -6,16 +6,14 @@ class Users::AdvertisementsController < ApplicationController
 	#before_filter :set_search
 
 	def index
-		@q = Advertisement.where("state = 'published' ").ransack(params[:q])
-		@advertisements = @q.result.paginate(page: params[:page], per_page: 5)
+		@users = User.all
+		@user = User.find(params[:id])
+		@user_advertisements = @user.advertisements
 	end
 
 	def show
 	end
 
-	def show_published
-		@q = Advertisement.where("state = 'published' ").ransack(params[:q])
-	end
 
 	def new
 		@advertisement = Advertisement.new

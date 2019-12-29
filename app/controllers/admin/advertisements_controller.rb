@@ -1,6 +1,5 @@
 class Admin::AdvertisementsController < Admin::AdminController
 	
-
 	before_action :authenticate_user!, except: [:index, :show ]
 	before_action :set_advertisement,  except: [:index ]
 	#before_filter :set_search
@@ -16,10 +15,12 @@ class Admin::AdvertisementsController < Admin::AdminController
 	
 	def reject
 		@advertisement.reject!
+		redirect_to admin_advertisements_path
 	end
 	
 	def approve
 		@advertisement.approve!
+		redirect_to admin_advertisements_path
 	end
 
 	def destroy

@@ -12,5 +12,21 @@ class Users::UserController < ApplicationController
 
 	def show
 	end
+	
+	def show_published
+		@q = Advertisement.where("state = 'published' ").ransack(params[:q])
+	end
+
+	def show_archived
+		@q = Advertisement.where("state = 'archived' ").ransack(params[:q])
+	end
+
+	def show_approved
+		@q = Advertisement.where("state = 'approve' ").ransack(params[:q])
+	end
+
+	def show_rejected
+		@q = Advertisement.where("state = 'rejected' ").ransack(params[:q])
+	end
 
 end

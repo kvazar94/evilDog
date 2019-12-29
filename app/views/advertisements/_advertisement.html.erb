@@ -12,12 +12,6 @@
 			<% if advertisement.category.present? %>
 			<%= link_to advertisement.category.name, advertisement.category%>
 			<% end %>
-			<% if user_signed_in? && !current_user.admin? %>
-			<%= button_to 'Редактировать', edit_users_advertisement_path(advertisement)%>
-			<% end %>
-			<% if user_signed_in? || current_user.try(:admin?) %>
-			<%= button_to 'Уничтожить', users_advertisement_path(@advertisement) method: :delete, data: { confirm: 'Вы уверены?' } %>
-			<% end %>
 			<%= "Статус объявления:" + " " + advertisement.state %>
 			<%= advertisement.user_id %>
 		</small>

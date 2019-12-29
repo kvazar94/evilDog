@@ -1,11 +1,13 @@
-
+  <%# if user_signed_in? %>
 <h1><%= "Привет!" + " " + @user.first_name + " " + @user.last_name %></h1>
 <%= link_to "Редактировать профиль", edit_user_registration_path, class: "nav-link"  %>
 <%= link_to "Все", @user_advertisemens, class: "nav-link"  %>
-<%= link_to "В архиве", @user_advertisemens, class: "nav-link"  %>
-<%= link_to "Опубликованные", edit_user_registration_path, class: "nav-link"  %>
-<%= link_to "Отклоненные", edit_user_registration_path, class: "nav-link"  %>
-<%= link_to "Ждут публикации", edit_user_registration_path, class: "nav-link"  %>
+<%= link_to "В архиве", :action => 'show_archived',  class: "nav-link"  %>
+<%= link_to "Опубликованные", :action => 'show_published', class: "nav-link"  %>
+<%= link_to "Отклоненные", :action => 'show_rejected', class: "nav-link"  %>
+<%= link_to "Ждут публикации", :action => 'show_approved', class: "nav-link"  %>
+
+<%= select_tag :state, options_for_select(state) %>
 <% @user_advertisements.each do |advertisement|%>
 <article class="advertisement">
 	<section class="advertisement-head"> 
@@ -28,3 +30,4 @@
 	<%= advertisement.state %>
 </article>
 <% end %>
+<%# end %>

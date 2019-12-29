@@ -10,6 +10,11 @@ class User < ApplicationRecord
   # after_create :create_profile
   
   has_many :advertisements, :dependent => :destroy
+
+  def self.create_new_user(params)
+    @user = User.create!(params)
+  end
+
   private
   def create_role
     self.roles << Role.find_by_name(:user)  

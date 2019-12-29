@@ -20,54 +20,53 @@
         </li>
         <% end %>
       </ul>
-      <%= search_form_for @q do |f| %>
-      <%= f.search_field :title_or_body_cont %>
-      <%= f.submit :искать %>
-      <% end %>
       <ul class="navbar-nav  pull-xs-top">
+        <% if user_signed_in? && current_user.admin? %>
+        <li class="nav-item">
+          <%= link_to "Админ", admin_advertisements_path , class: "nav-link" %>
+          <% end %>
+        </li> 
         <% if user_signed_in? && !current_user.admin? %>
         <li class="nav-item">
           <%#= button_to "Мой профиль", user_path %>
           <%= link_to "Добавить объявление", new_users_advertisement_path, method: :create, class: "nav-link" %>
-          <% end %> 
         </li>   
-        <% if user_signed_in? %>
         <li class="nav-item">
           <%= link_to "Мой профиль", current_user, class: "nav-link" %>
-          <li class="nav-item">
-            <%= button_to "Выход", destroy_user_session_path, method: :delete, class: "nav-link" %>
-          </li>
-          <% else %>
-          <li class="nav-item">
-           <%= link_to "Вход", new_user_session_path, class: "nav-link" %>
-         </li>
-         <% if !user_signed_in? %>
-         <li class="nav-item">
-          <%= link_to "Регистрация", new_user_registration_path, class: "nav-link" %>
-          <% end %>
         </li>
-        <% end %>
-      </ul>
-    </nav>
-  </div> 
-  <div class="container main">
-    <div class="row">
-      <div class="col-md-12">
-       <% flash.each do |name, message| %>
-       <div class="alert alert-<%= bootstrap_class_for(name) %>">
-        <button class="close" data-dismiss="alert">&times;</button>
-        <%= message %>
-      </div>
+        <li class="nav-item">
+          <%= button_to "Выход", destroy_user_session_path, method: :delete, class: "nav-link" %>
+        </li>
+        <% else %>
+        <li class="nav-item">
+         <%= link_to "Вход", new_user_session_path, class: "nav-link" %>
+       </li>
+       <li class="nav-item">
+        <%= link_to "Регистрация", new_user_registration_path, class: "nav-link" %>
+      </li>
       <% end %>
-    </div>
-  </div>
+    </ul>
+  </nav>
+</div> 
+
+<div class="container main">
   <div class="row">
-    <div class="col-md-8">
-     <%= yield %>
-   </div>
-   <div class="col-md-4">
-    <%= render 'shared/submenu' %>
+    <div class="col-md-12">
+     <% flash.each do |name, message| %>
+     <div class="alert alert-<%= bootstrap_class_for(name) %>">
+      <button class="close" data-dismiss="alert">&times;</button>
+      <%= message %>
+    </div>
+    <% end %>
   </div>
+</div>
+<div class="row">
+  <div class="col-md-8">
+   <%= yield %>
+ </div>
+ <div class="col-md-4">
+  <%= render 'shared/submenu' %>
+</div>
 </div>
 </div>
 </body>
