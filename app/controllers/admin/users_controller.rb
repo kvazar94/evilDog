@@ -16,9 +16,10 @@ class Admin::UsersController < ApplicationController
 	end
 
 	def destroy
-		resource.destroy
-		set_flash_message :notice, :destroyed
-		sign_out_and_redirect(self.resource)
+		@user = User.find(params[:id])
+		@user.destroy
+		# set_flash_message :notice, :destroyed
+		# sign_out_and_redirect(self.resource)
 	end
 
 	def new
@@ -27,9 +28,12 @@ class Admin::UsersController < ApplicationController
 end
 
 def create
-	@user = current_users.create(user_params)
-	@user = User.new(permitted_params.user)
-	#authorize! :manage, User
+	@user = User.new(user_params)
+	if @user.save
+		redirect_to admin_users_path
+	else
+		render :new
+	end
 end
 
 private

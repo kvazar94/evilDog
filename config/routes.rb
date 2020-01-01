@@ -14,19 +14,10 @@ Rails.application.routes.draw do
   namespace :admin do
   	resources :categories
   	resources :advertisements, except: [:new, :create, :edit] 
-    resources :users do
-      get :new
-      
-      post :edit
-    end
+    resources :users 
   end
 
   namespace :users do
-    get :show_archived
-    get :show_approved
-    get :show_published
-    get :show_rejected
     resources :advertisements, except: [:show, :index]
   end
-
 end

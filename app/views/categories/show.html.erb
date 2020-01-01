@@ -6,8 +6,7 @@
   <%= f.search_field :title_or_body_cont %>
   <%= f.submit :искать %>
   <% end %>
-  <%= sort_link(@q, :created_at, 'по дате', default_order: :desc) %>
-</div>
+ </div>
 	<%= render @category.advertisements.where("state = 'published' ") %>
 </section>
 <%= will_paginate @advertisements, renderer: 'BootstrapPaginationHelper::LinkRenderer'  %>

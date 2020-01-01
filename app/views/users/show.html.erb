@@ -1,33 +1,39 @@
   <%# if user_signed_in? %>
-<h1><%= "Привет!" + " " + @user.first_name + " " + @user.last_name %></h1>
-<%= link_to "Редактировать профиль", edit_user_registration_path, class: "nav-link"  %>
-<%= link_to "Все", @user_advertisemens, class: "nav-link"  %>
-<%= link_to "В архиве", :action => 'show_archived',  class: "nav-link"  %>
-<%= link_to "Опубликованные", :action => 'show_published', class: "nav-link"  %>
-<%= link_to "Отклоненные", :action => 'show_rejected', class: "nav-link"  %>
-<%= link_to "Ждут публикации", :action => 'show_approved', class: "nav-link"  %>
+  <h1><%= "Привет!" + " " + @user.first_name + " " + @user.last_name %></h1>
 
-<%= select_tag :state, options_for_select(state) %>
-<% @user_advertisements.each do |advertisement|%>
-<article class="advertisement">
-	<section class="advertisement-head"> 
-		<h1> <%= advertisement.title %> </h1>
-		<small>
-			<time>
-				<%= advertisement.created_at.to_date.strftime( "%e %B %Y %H:%M:%S" ) %>
-			</time>
-			<% if advertisement.category.present? %>
-			<%= link_to advertisement.category.name, advertisement.category%>
-			<% end %>
-			<%= button_to 'Редактировать', edit_users_advertisement_path(advertisement), method: :get %>
-			<%= button_to 'Уничтожить', users_advertisement_path(advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
-		</small>
-	</section>
-	<section class="advertisement-body">
-		<%= advertisement.body %>
-		<%= image_tag advertisement.image.url(:large), class: 'img-show' if advertisement.image? %>
-	</section>
-	<%= advertisement.state %>
-</article>
-<% end %>
+  <div class="btn-toolbar">
+
+  <%= button_to "Редактировать профиль", edit_user_registration_path, method: :get, class: "btn-group"  %>
+  <%= button_to "Все", @user_advertisemens, class: "btn-group"  %>
+  <%= button_to "В архиве",  class: "btn-group"  %>
+  <%= button_to "Опубликованные", @user_ads_pub, class: "btn-group"  %>
+  <%= button_to "Отклоненные", class: "btn-group"  %>
+  <%= button_to "Ждут публикации", class: "btn-group"  %>
+  <%= button_to "Черновик", class: "btn-group"  %>
+</div>
+  <% @user_advertisements.each do |advertisement|%>
+  <article class="advertisement">
+  	<section class="advertisement-head"> 
+  		<h1>
+  			<%#= advertisement.title %> 
+  			<%= link_to advertisement.title, advertisement_path(advertisement) %>  </h1>
+  			<small>
+  				<time>
+  					<%= advertisement.created_at.to_date.strftime( "%e %B %Y %H:%M:%S" ) %>
+  				</time>
+  				<% if advertisement.category.present? %>
+  				<%= link_to advertisement.category.name, advertisement.category%>
+  				<% end %>
+  				<%#= button_to 'Отправить в очередь', users_advertisement_path(@advertisement), params: { advertisement: { state_event: 'new'}}, method: :patch %>
+  				<%= button_to 'Редактировать', edit_users_advertisement_path(advertisement), method: :get %>
+  				<%= button_to 'Уничтожить', users_advertisement_path(advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
+  			</small>
+  		</section>
+  		<section class="advertisement-body">
+  			<%= advertisement.body %>
+  			<%= image_tag advertisement.image.url(:large), class: 'img-show' if advertisement.image? %>
+  		</section>
+  		<%= advertisement.state %>
+  	</article>
+  	<% end %>
 <%# end %>

@@ -13,6 +13,7 @@
 			<% end %>
 			<% end %>
 			<% if user_signed_in? && !current_user.admin %>
+			<%#= button_to 'Отправить в очередь', users_advertisement_path(@advertisement), params: { advertisement: { state_event: 'new'}}, method: :patch %>
 			<%= button_to 'Редактировать', edit_users_advertisement_path(@advertisement), method: :get %>
 			<%= button_to 'Уничтожить', users_advertisement_path(@advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
 			<% end %>

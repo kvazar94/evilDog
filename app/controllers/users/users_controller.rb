@@ -1,5 +1,6 @@
 class Users::UserController < ApplicationController
 
+	layout "admin"
 	def current_user
 		User.find_by(id: session[:user_id])
 	end
@@ -7,14 +8,17 @@ class Users::UserController < ApplicationController
 	def index 
 		@users = User.all
 		@user = User.find(params[:id])
-		@user_advertisements = @user.advertisements
+		@user_advertisements = @user.advertisements.paginate(page: params[:page], per_page: 5)
+		
 	end
 
 	def show
 	end
 	
 	def show_published
-		@q = Advertisement.where("state = 'published' ").ransack(params[:q])
+		@user = User.find(params[:id])
+		
+		
 	end
 
 	def show_archived

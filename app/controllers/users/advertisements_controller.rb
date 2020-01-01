@@ -2,7 +2,7 @@ class Users::AdvertisementsController < ApplicationController
 	
 	before_action :authenticate_user!, except: [:index, :show]
 	before_action :set_advertisement, only: [ :edit, :update, :destroy ]
-
+	#scope :published, -> { where(published: true) }
 	#before_filter :set_search
 
 	def index
@@ -14,6 +14,10 @@ class Users::AdvertisementsController < ApplicationController
 	def show
 	end
 
+	def new
+		@advertisement.new!
+		redirect_to users_advertisements_path
+	end
 
 	def new
 		@advertisement = Advertisement.new
@@ -23,7 +27,6 @@ class Users::AdvertisementsController < ApplicationController
 	def create
 		@advertisement = current_user.advertisements.create(advertisement_params)
 		if @advertisement.save
-			@advertisement.to_new
 			redirect_to @advertisement, success: 'Объявление создано' 
 		else
 			flash.now[:danger] = 'Статья не создана'
@@ -37,7 +40,6 @@ class Users::AdvertisementsController < ApplicationController
 	def update
 		if @advertisement.update_attributes(advertisement_params)
 			redirect_to @advertisement, success: 'Объявление отредактировано успешно'
-			@advertisement.to_new
 		else
 			flash.now[:danger] = '...что-то пошло не так...'
 			render :edit
@@ -56,7 +58,7 @@ class Users::AdvertisementsController < ApplicationController
 	end
 
 	def advertisement_params
-		params.require(:advertisement).permit(:title, :body, :image, :category_id, :state, :user_id)
+		params.require(:advertisement).permit(:title, :body, :image, :category_id, :state_event, :user_id)
 	end
 
 

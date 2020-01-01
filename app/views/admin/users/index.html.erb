@@ -1,8 +1,10 @@
- 
-<%= button_to "Добавить пользователя", new_admin_user_path, class: "nav-link"%>
-<div class="container">
-	<body>
-		<table  class="table table-bordered margin-top">
+
+<h1>Таблица пользователей</h1>
+<div class="buttons_panel">
+<%= button_to "Добавить пользователя", new_admin_user_path, method: :get, class: "btn btn-dark"%>
+</div>
+<section id="users">
+		<table  class="table table-bordered">
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">#</th>
@@ -34,4 +36,4 @@
 			</tbody>
 		</table>
 	</div>
-</body>
+</section>
