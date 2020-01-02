@@ -1,39 +1,41 @@
 
 <h1>Таблица пользователей</h1>
 <div class="buttons_panel">
-<%= button_to "Добавить пользователя", new_admin_user_path, method: :get, class: "btn btn-dark"%>
+	<%= button_to "Добавить пользователя", new_admin_user_path, method: :get, class: "btn btn-dark"%>
 </div>
 <section id="users">
-		<table  class="table table-bordered">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">action</th>
-					<th scope="col">id</th>
-					<th scope="col">Дата регистрации</th>
-					<th scope="col">Имя</th>
-					<th scope="col">Фамилия</th>
-					<th scope="col">Username</th>
-					<th scope="col">e-mail</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @users.each do |user| %>
-				<tr>
-					<th scope="row"></th>
-					<td> 
-						<%= button_to "Уничтожить", admin_user_path(user.id),  method: :delete, confirm: 'Are You Sure?' %>
-						<%= button_to "Редактировать", edit_admin_user_path(user.id), confirm: 'Are You Sure?' %>
-					</td>
-					<td><%= user.id %></td>
-					<td><%= user.created_at %></td>
-					<td><%= user.first_name %></td>
-					<td><%= user.last_name %></td>
-					<td><%= user.username %></td>
-					<td><%= user.email %></td>
-					<% end %>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+	<table  class="table table-bordered">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">action</th>
+				<th scope="col">id</th>
+				<th scope="col">admin?</th>
+				<th scope="col">Дата регистрации</th>
+				<th scope="col">Имя</th>
+				<th scope="col">Фамилия</th>
+				<th scope="col">Username</th>
+				<th scope="col">e-mail</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @users.each do |user| %>
+			<tr>
+				<th scope="row"></th>
+				<td> 
+					<%= button_to "Уничтожить", admin_user_path(user.id),  method: :delete, confirm: 'Are You Sure?' %>
+					<%= button_to "Редактировать", edit_admin_user_path(user.id), confirm: 'Are You Sure?' %>
+				</td>
+				<td><%= user.id %></td>
+				<td><%= user.admin %></td>
+				<td><%= user.created_at %></td>
+				<td><%= user.first_name %></td>
+				<td><%= user.last_name %></td>
+				<td><%= user.username %></td>
+				<td><%= user.email %></td>
+				<% end %>
+			</tr>
+		</tbody>
+	</table>
+</div>
 </section>

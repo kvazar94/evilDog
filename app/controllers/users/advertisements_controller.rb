@@ -1,7 +1,7 @@
 class Users::AdvertisementsController < ApplicationController
 	
-	before_action :authenticate_user!, except: [:index, :show]
-	before_action :set_advertisement, only: [ :edit, :update, :destroy ]
+	before_action :authenticate_user!, except: [:index]
+	before_action :set_advertisement, except: [:index, :new]
 	#scope :published, -> { where(published: true) }
 	#before_filter :set_search
 
@@ -14,8 +14,8 @@ class Users::AdvertisementsController < ApplicationController
 	def show
 	end
 
-	def new
-		@advertisement.new!
+	def to_fresh
+		@advertisement.to_fresh!
 		redirect_to users_advertisements_path
 	end
 
@@ -55,15 +55,11 @@ class Users::AdvertisementsController < ApplicationController
 
 	def set_advertisement
 		@advertisement = Advertisement.find(params[:id])
+		#@advertisement = Advertisement.find(params[:user_id])
 	end
 
 	def advertisement_params
 		params.require(:advertisement).permit(:title, :body, :image, :category_id, :state_event, :user_id)
 	end
-
-
-
-
-
 
 end

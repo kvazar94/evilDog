@@ -6,17 +6,15 @@ class Advertisement < ApplicationRecord
 	validates :title, :body, presence: true
 
 	state_machine initial: :draft do
-		state :new
+		state :fresh
 		state :draft
 		state :rejected
 		state :approved
 		state :published
 		state :archived
 
-		event :to_new do
-			transition :draft => :new
-			#transition :rejected => :new
-			transition :archived => :new
+		event :to_fresh do
+			transition :draft => :fresh
 		end
 
 		event :to_archive do
@@ -24,20 +22,21 @@ class Advertisement < ApplicationRecord
 		end
 
 		event :reject do
-			transition :new => :rejected
+			transition :fresh => :rejected
 		end
 
 		event :approve do
-			transition :new => :approved
+			transition :fresh => :approved
 		end
 
 		event :to_published do
 			transition :approved => :published
 		end
 
-		event :from_rj_to_new do
-			transition :rejected => :new
+		event :to_draft do
+			transition [:rejected, :archived] => :draft
 		end
+
 	end
 
 	attr_accessor :state_event

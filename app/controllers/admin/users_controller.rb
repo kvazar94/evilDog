@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
 	#before_filter :set_search
-
+	before_action :authenticate_user!
 	layout "admin"
 	def current_user
 		User.find_by(id: session[:user_id])
@@ -18,6 +18,7 @@ class Admin::UsersController < ApplicationController
 	def destroy
 		@user = User.find(params[:id])
 		@user.destroy
+		redirect_to admin_users_path
 		# set_flash_message :notice, :destroyed
 		# sign_out_and_redirect(self.resource)
 	end

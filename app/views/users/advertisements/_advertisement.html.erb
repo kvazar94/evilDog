@@ -1,0 +1,23 @@
+<article class="advertisement">
+	<section class="advertisement-head"> 
+		<h2> <%= link_to advertisement.title, users_advertisement_path(advertisement) %> </h2>
+		<section class="advertisement-body clearfix">
+			<%= image_tag advertisement.image.url(:thumb), class: 'img-thumbnail thumb' if advertisement.image? %>
+			<%= advertisement.body %>
+		</section>
+		<small>
+			<time>
+				<%= advertisement.created_at %>
+			</time>
+			<% if advertisement.category.present? %>
+  				<%= link_to advertisement.category.name, advertisement.category%>
+  				<% end %>
+  				<%= button_to 'Редактировать', edit_users_advertisement_path(advertisement), method: :get %>
+  				<%= button_to 'Уничтожить', users_advertisement_path(advertisement), method: :delete, data: { confirm: 'Вы уверены?' } %>
+  				<%= button_to 'Отправить в очередь', users_advertisement_path(advertisement), params: { advertisement: { state_event: 'to_fresh'}}, method: :patch %>
+  				<% end %>
+			<%= "Статус объявления:" + " " + advertisement.state %>
+			<%= advertisement.user_id %>
+		</small>
+	</section>
+</article>
