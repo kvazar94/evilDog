@@ -1,4 +1,4 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < UsersController
 	#before_filter :set_search
 	before_action :authenticate_user!
 	layout "admin"
@@ -12,7 +12,7 @@ class Admin::UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
-		@user_advertisements = @user.advertisements
+		@user_advertisements = @user.advertisements.result.paginate(page: params[:page], per_page: 10)
 	end
 
 	def destroy

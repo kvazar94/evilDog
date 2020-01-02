@@ -1,14 +1,13 @@
 class Users::AdvertisementsController < ApplicationController
 	
 	before_action :authenticate_user!, except: [:index]
-	before_action :set_advertisement, except: [:index, :new]
-	#scope :published, -> { where(published: true) }
-	#before_filter :set_search
+	before_action :set_advertisement, only: [ :edit, :update, :destroy ]
+
 
 	def index
 		@users = User.all
 		@user = User.find(params[:id])
-		@user_advertisements = @user.advertisements
+		@user_advertisements = @user.advertisements #.paginate(page: params[:page], per_page: 5)
 	end
 
 	def show
@@ -20,8 +19,8 @@ class Users::AdvertisementsController < ApplicationController
 	end
 
 	def new
-		@advertisement = Advertisement.new
-		#@advertisement = current_user.advertisements.build
+		#@advertisement = Advertisement.new
+		@advertisement = current_user.advertisements.build
 	end
 
 	def create
@@ -39,6 +38,7 @@ class Users::AdvertisementsController < ApplicationController
 
 	def update
 		if @advertisement.update_attributes(advertisement_params)
+			@advertisement.to_draft
 			redirect_to @advertisement, success: 'Объявление отредактировано успешно'
 		else
 			flash.now[:danger] = '...что-то пошло не так...'
@@ -55,7 +55,6 @@ class Users::AdvertisementsController < ApplicationController
 
 	def set_advertisement
 		@advertisement = Advertisement.find(params[:id])
-		#@advertisement = Advertisement.find(params[:user_id])
 	end
 
 	def advertisement_params

@@ -6,7 +6,7 @@ class Admin::AdvertisementsController < Admin::AdminController
 
 	def index
 		@q = Advertisement.where("state = 'fresh' ").ransack(params[:q])
-		@advertisements = @q.result.paginate(page: params[:page], per_page: 5)
+		@advertisements = @q.result.paginate(page: params[:page], per_page: 10)
 	end
 
 	def show
@@ -15,12 +15,12 @@ class Admin::AdvertisementsController < Admin::AdminController
 	
 	def reject
 		@advertisement.reject!
-		redirect_to admin_advertisements_path
+		redirect_to admin_advertisements_path, success: 'Объявление отклонено успешно'
 	end
 	
 	def approve
 		@advertisement.approve!
-		redirect_to admin_advertisements_path
+		redirect_to admin_advertisements_path, success: 'Объявление заверено успешно'
 	end
 
 	def destroy
@@ -30,10 +30,10 @@ class Admin::AdvertisementsController < Admin::AdminController
 
 	def update
 		if @advertisement.update_attributes(advertisement_params)
-			redirect_to @advertisement, success: 'Объявление отредактировано успешно'
-			@advertisement.to_new
+			redirect_to admin_advertisements_path #, success: 'Объявление отредактировано успешно'
+			#@advertisement.to_fresh
 		else
-			flash.now[:danger] = 'Упс... что-то пошло не так...'
+			flash.now[:danger] = 'Ой... что-то пошло не так...'
 			render :edit
 		end
 	end

@@ -5,7 +5,7 @@ class AdvertisementsController < ApplicationController
 
 	def index
 		@q = Advertisement.where("state = 'published' ").ransack(params[:q])
-		@advertisements = @q.result.paginate(page: params[:page], per_page: 5)
+		@advertisements = @q.result.paginate(page: params[:page], per_page: 15)
 	end
 
 	def show

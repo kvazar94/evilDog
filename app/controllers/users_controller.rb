@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	
+
 	def current_user
 		User.find_by(id: session[:user_id])
 	end
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
-		@user_advertisements = @user.advertisements.paginate(page: params[:page], per_page: 5)
+		@user_advertisements = @user.advertisements #.paginate(page: params[:page], per_page: 10)
 	end
 
 	def destroy
