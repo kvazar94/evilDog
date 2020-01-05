@@ -1,0 +1,54 @@
+doctype html
+html
+  head
+    title
+      | EvilDog
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    .container
+      nav.navbar.navbar-expand-lg.navbar-toggleable-md.navbar-light[style="background-color: #e3f2fd;"]
+        ul.navbar-nav
+          li.nav-item.active
+            |  <a class="nav-link " href="
+            = advertisements_path
+            | ">Все объявления
+          - Category.order(:name).roots.each do |category|
+            |  <li class="nav-item 
+            = 'active' if current_page?(category_path(category))
+            | "> 
+            = link_to category.name, category, class: 'nav-link'
+        ul.navbar-nav.pull-xs-top
+          - if user_signed_in? && current_user.admin?
+            li.nav-item
+              = link_to "Админ", admin_advertisements_path , class: "nav-link"
+          - if user_signed_in? && !current_user.admin?
+            li.nav-item
+              - #= button_to "Мои объявления", user_path
+              = link_to "Добавить объявление", new_users_advertisement_path, method: :create, class: "nav-link"
+            li.nav-item
+              = link_to "Мои объявления", current_user, class: "nav-link"
+            li.nav-item
+              = button_to "Выход", destroy_user_session_path, method: :delete, class: "nav-link"
+          - else
+            li.nav-item
+              = link_to "Вход", new_user_session_path, class: "nav-link"
+            li.nav-item
+              = link_to "Регистрация", new_user_registration_path, class: "nav-link"
+    .container.main
+      .row
+        .col-md-12
+          - flash.each do |name, message|
+            |  <div class="alert alert-
+            = bootstrap_class_for(name)
+            | "> 
+            button.close[data-dismiss="alert"]
+              | ×
+            = message
+    .row
+      .col-md-8
+        = yield
+      .col-md-4
+        = render 'shared/submenu'

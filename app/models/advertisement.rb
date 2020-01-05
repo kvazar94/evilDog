@@ -1,5 +1,12 @@
 class Advertisement < ApplicationRecord
 	mount_uploader :image, ImageUploader
+	 scope :published, -> { where(state: 'published') }
+	 scope :draft, -> { where(state: 'draft') }
+	 scope :approved, -> { where(state: 'approved') }
+	 scope :rejected, -> { where(state: 'rejected') }
+	 scope :archived, -> { where(state: 'archived') }
+	 scope :fresh, -> { where(state: 'fresh') }
+
 
 	belongs_to :user
 	belongs_to :category

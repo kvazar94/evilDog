@@ -24,7 +24,7 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-
+gem 'rubocop', require: false
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 4.4.1'
@@ -41,7 +41,7 @@ gem 'ransack'
 gem "nested_form"
 
 gem 'trix-rails', require: 'trix'
-
+gem 'slim-rails'
 gem 'will_paginate', '~> 3.1.0'
 gem 'simple_form'
 gem 'devise'

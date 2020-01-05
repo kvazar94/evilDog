@@ -1,0 +1,11 @@
+| $('#advertisements').append("
+= j render(partial: 'advertisements/delimeter')
+| "); $('#advertisements').append("
+= j render(@advertisements)
+| "); 
+- if @posts.next_page
+  |  $('.pagination').replaceWith("
+  = j  will_paginate(@advertisements, renderer: 'BootstrapPaginationHelper::LinkRenderer')
+  | "); 
+- else
+  |  $('.pagination').remove(); 

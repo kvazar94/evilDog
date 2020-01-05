@@ -2,10 +2,9 @@ class Users::AdvertisementsController < ApplicationController
 	
 	before_action :authenticate_user!, except: [:index]
 	before_action :set_advertisement, only: [ :edit, :update, :destroy ]
-
-
+	
 	def index
-		@users = User.all
+		#@users = User.all
 		@user = User.find(params[:id])
 		@user_advertisements = @user.advertisements #.paginate(page: params[:page], per_page: 5)
 	end

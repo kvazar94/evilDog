@@ -1,0 +1,10 @@
+= render 'shared/breadcrumb', category: @category
+h1
+  = @category.name
+section#advertisements
+  div
+    = search_form_for @q do |f|
+      = f.search_field :title_or_body_cont
+      = f.submit :искать
+  = render @category.advertisements.where("state = 'published' ")
+= will_paginate @advertisements, renderer: 'BootstrapPaginationHelper::LinkRenderer'

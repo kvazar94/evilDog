@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    title
+      | EvilDogAdmin
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    .container
+      nav.navbar.navbar-expand-lg.navbar-toggleable-md.navbar-dark.bg-dark
+        ul.navbar-nav
+
+        ul.navbar-nav.pull-xs-top
+          li.nav-item
+            = link_to "Редактор категорий", admin_categories_url, class: "nav-link"
+          li.nav-item
+            = link_to "Редактор пользовтелей", admin_users_path, class: "nav-link"
+          li.nav-item
+            = link_to "Очередь объявлений", admin_advertisements_path, class: "nav-link"
+          li.nav-item
+            = button_to "Выход", destroy_user_session_path, method: :delete, class: "nav-link "
+            
+    .container.main
+      .row
+        .col-md-12
+          - flash.each do |name, message|
+            |  <div class="alert alert-
+            = bootstrap_class_for(name)
+            | "> 
+            button.close[data-dismiss="alert"]
+              | ×
+            = message
+    .row
+      .col-md-8
+        = yield

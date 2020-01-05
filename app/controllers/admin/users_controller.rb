@@ -2,9 +2,7 @@ class Admin::UsersController < UsersController
 	#before_filter :set_search
 	before_action :authenticate_user!
 	layout "admin"
-	def current_user
-		User.find_by(id: session[:user_id])
-	end
+
 
 	def index 
 		@users = User.all

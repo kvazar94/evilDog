@@ -1,0 +1,15 @@
+= form_for [:users, @advertisement], html: { multipart: true } do |f|
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control'
+  .form-group
+    = f.label :body
+    = f.text_area :body, class: 'form-control'
+  .form-group
+    = f.label :category_id
+    = f.collection_select :category_id, Category.order(:name), :id, :name, { include_blank: true }, class: 'form-control'
+  .form-group
+    = f.file_field :image
+  .form-group
+    = f.submit 'Сохранить', class: 'btn btn-primary'
+    = link_to 'Назад', :back, class: 'btn btn-outline-secondary'

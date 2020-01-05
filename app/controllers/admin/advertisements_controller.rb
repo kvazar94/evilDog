@@ -5,7 +5,7 @@ class Admin::AdvertisementsController < Admin::AdminController
 	#before_filter :set_search
 
 	def index
-		@q = Advertisement.where("state = 'fresh' ").ransack(params[:q])
+		@q = Advertisement.fresh.ransack(params[:q])
 		@advertisements = @q.result.paginate(page: params[:page], per_page: 10)
 	end
 

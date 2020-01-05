@@ -1,0 +1,17 @@
+= render 'shared/breadcrumb', category: @advertisement.category
+article.advertisement
+  section.advertisement-head
+    h1
+      = @advertisement.title
+    small
+      time
+        = @advertisement.created_at
+        - #.to_date.strftime( "%e %B %Y %H:%M:%S" )
+      - if user_signed_in?
+        - if @advertisement.category.present?
+          = link_to @advertisement.category.name, @advertisement.category
+      = @advertisement.state
+      = @advertisement.user_id
+  section.advertisement-body
+    = image_tag @advertisement.image.url(:large), class: 'img-show' if @advertisement.image?
+    = @advertisement.body
