@@ -3,3 +3,4 @@ ul.nav.nav-pills.nav-stacked.nested_nav
     li
       = link_to category.name, category, class: "nav-link #{'active' if current_page?(category_path(category)) || @advertisement.present? && @advertisement.category == category}"
       = render 'shared/submenu_categories', categories: children if children.present?
+ 

@@ -49,11 +49,6 @@ class Advertisement < ApplicationRecord
 	attr_accessor :state_event
 	after_save :trigger_state, if: :state_event
 
-	def self.change_st
-		ads = Advertisement.where("state = 'approved'")
-		ads.update(:state => 'published')
-		
-	end
 
 	private def trigger_state
 		send(state_event) if send(:"can_#{state_event}?")

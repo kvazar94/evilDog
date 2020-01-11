@@ -24,11 +24,10 @@
   
 # end
 
-# every 1.day, at: '0:00 am' do
-every 2.minutes do
+every 1.day, at: '0:00 am' do
 	rake 'ads_change_states:ads_publish'
 end
 
-# every 1.day, at: '11:50 pm' do
- 
-# end
+every 1.day, at: '11:50 pm' do
+	rake 'ads_change_states:ads_archive'
+end
