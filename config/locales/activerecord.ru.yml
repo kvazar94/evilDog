@@ -5,5 +5,4 @@ ru:
     attributes:
       advertisement:
         title: 'Заголовок'
-        summory: 'Краткое содержание'
         body: 'Текст объявления'

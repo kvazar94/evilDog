@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Use this file to easily define all of your cron jobs.
 #
 # It's helpful, but not entirely necessary to understand cron before proceeding.
@@ -19,15 +21,14 @@
 
 # Learn more: http://github.com/javan/whenever
 
-
 # every 1.day, at: '0:00 am' do
-  
+
 # end
 
 every 1.day, at: '0:00 am' do
-	rake 'ads_change_states:ads_publish'
+  rake 'ads_change_states:ads_publish'
 end
 
 every 1.day, at: '11:50 pm' do
-	rake 'ads_change_states:ads_archive'
+  rake 'ads_change_states:ads_archive'
 end

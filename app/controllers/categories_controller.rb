@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 class CategoriesController < ApplicationController
-	before_action :set_category, only: :show
+  before_action :set_category, only: :show
 
-	def show
-		@q = Advertisement.where(state: 'published', category_id: [@category.subtree_ids]).ransack(params[:q])
-		@advertisements = @q.result.paginate(page: params[:page], per_page: 10)
+  def show
+    @q = Advertisement.where(state: 'published', category_id: [@category.subtree_ids]).ransack(params[:q])
+    @advertisements = @q.result.paginate(page: params[:page], per_page: 10)
 
-		#@advertisements = Advertisement.where(category_id: [@category.subtree_ids]).paginate(page: params[:page], per_page: 5)
-	end
+    # @advertisements = Advertisement.where(category_id: [@category.subtree_ids]).paginate(page: params[:page], per_page: 5)
+  end
 
-	private
+  private
 
-	def set_category
-		@category = Category.find(params[:id])
-	end
+  def set_category
+    @category = Category.find(params[:id])
+  end
 end
