@@ -33,7 +33,7 @@ gem 'bootstrap', '~> 4.4.1'
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 gem 'state_machines-activerecord'
 
 gem 'mini_magick'
